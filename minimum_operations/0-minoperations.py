@@ -1,34 +1,22 @@
 #!/usr/bin/python3
+
 """
-Module that contains min_operations function.
+Given a number n, write a method that calculates the fewest # of operations.
+
+Prototype: def minOperations(n)
+Returns an integer
+If n is impossible to achieve, return 0
 """
 
 
-def min_operations(n):
-    """
-    Calculates the fewest number of operations needed to result
-    in exactly n 'H' characters in the file.
-
-    Args:
-        n (int): Target number of H characters.
-
-    Returns:
-        int: Minimum number of operations needed.
-             Returns 0 if n is impossible to achieve.
-    """
+def minOperations(n):
     if n <= 1:
         return 0
 
-    operations = 0
-    divisor = 2
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            return i + minOperations(n // i)
+        i += 1
 
-    while divisor * divisor <= n:
-        while n % divisor == 0:
-            operations += divisor
-            n //= divisor
-        divisor += 1
-
-    if n > 1:
-        operations += n
-
-    return operations
+    return n
